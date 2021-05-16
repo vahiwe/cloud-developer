@@ -28,6 +28,10 @@ router.get('/:id',
     }
 
     let item = await FeedItem.findOne({where: {id}})
+
+    if(item.url) {
+        item.url = AWS.getGetSignedUrl(item.url);
+    }
     
     res.status(200).send(item);
 });
